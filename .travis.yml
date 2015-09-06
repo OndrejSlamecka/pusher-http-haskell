@@ -1,15 +1,27 @@
+matrix:
+  include:
+  - env: GHCVER=7.8.4
+    addons:
+      apt:
+        sources:
+        - hvr-ghc
+        packages:
+        - ghc-7.8.4
+  - env: GHCVER=7.10.2
+    addons:
+      apt:
+        sources:
+        - hvr-ghc
+        packages:
+        - ghc-7.10.2
+
 before_install:
+  # ghc
+  - export PATH=/opt/ghc/$GHCVER/bin:$PATH
   # stack
   - mkdir -p ~/.local/bin
   - export PATH=~/.local/bin:$PATH
   - travis_retry curl -L https://github.com/commercialhaskell/stack/releases/download/v0.1.4.0/stack-0.1.4.0-x86_64-linux.tar.gz | tar xz -C ~/.local/bin
-
-addons:
-  apt:
-    sources:
-      - hvr-ghc
-    packages:
-      - ghc-7.10.2
 
 install:
   - stack --no-terminal --skip-ghc-check setup
